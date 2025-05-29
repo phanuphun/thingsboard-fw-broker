@@ -1,0 +1,23 @@
+version: '3.4'
+services:
+  tb-gateway:
+    image: thingsboard/tb-gateway:3.7-stable
+    container_name: tb-gateway
+    restart: always
+
+    # ใช้ host networking mode เพื่อให้ container มองเห็น localhost ของ host จริง
+    network_mode: host
+
+    # ไม่ต้องแมปพอร์ต MQTT เพราะใช้ host network mode
+    ports:
+      - "5000:5000"  # ถ้าใช้ REST connector
+
+    environment:
+      - host=127.0.0.1
+      - port=1883
+      - accessToken=sqe95wEqw2nExEnrIG05
+
+    volumes:
+      - ./tb-gw-config:/thingsboard_gateway/config
+      - ./tb-gw-logs:/thingsboard_gateway/logs
+      - ./tb-gw-extensions:/thingsboard_gateway/extensions

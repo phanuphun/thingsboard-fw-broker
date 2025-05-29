@@ -1,0 +1,31 @@
+logLevel: DEBUG
+thingsboard:
+  host: "host.docker.internal"
+  port: 1883
+  transportApiToken: "sqe95wEqw2nExEnrIG05"
+
+connectors:
+  - name: "EMQX"
+    type: mqtt
+    config:
+      broker:
+        host: emqx # ชื่อ service ใน network
+        port: 1883 # พอร์ตภายใน container ของ EMQX
+        clientId: "tb-gateway-emqx"
+        security:
+          type: basic
+          username: "admin"
+          password: "admin1234"
+      mapping:
+        - topicFilter: "/test/ping"
+          subscriptionQos: 1
+          converter:
+            type: json
+            deviceInfo:
+              deviceNameExpressionSource: constant
+              deviceNameExpression: "NodeTestDevice"
+            timeseries:
+              - key: message
+                value: "${payload.message}"
+              - key: timestamp
+                value: "${payload.timestamp}"

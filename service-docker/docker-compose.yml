@@ -1,0 +1,38 @@
+version: '3.0'
+services:
+  emqx:
+    restart: always
+    image: "emqx/emqx:latest"
+    ports:
+      - "1884:1883"
+      - "8883:8883"
+      - "8083:8083"
+      - "8084:8084"
+      - "18083:18083"
+    environment:
+      EMQX_NAME: emqx
+    networks:
+      - tb-net
+      
+  thingsboard:
+    restart: always
+    image: "thingsboard/tb-postgres"
+    ports:
+      - "8080:9090"
+      - "1883:1883"
+      - "7070:7070"
+      - "5683-5688:5683-5688/udp"
+    environment:
+      TB_QUEUE_TYPE: in-memory
+    volumes:
+      - mytb-data:/data
+      - mytb-logs:/var/log/thingsboard
+volumes:
+  mytb-data:
+    external: true
+  mytb-logs:
+    external: true
+
+networks:
+  tb-net:
+    external: true

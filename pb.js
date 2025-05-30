@@ -1,11 +1,13 @@
 const mqtt = require("mqtt");
 
-const host = "localhost"; // หรือ IP ของ MQTT broker
+const host = "191.20.110.47"; // หรือ IP ของ MQTT broker
 const port = 1883; // พอร์ตที่ใช้สำหรับ MQTT broker
 
+const accessToken = "8HveGd6agfbntNc7Wt33"; // ใส่ access token ที่ได้จาก Dashboard
+
 const client = mqtt.connect(`mqtt://${host}:${port}`, {
-  clientId: `smart-farm-js-publisher-${Math.floor(Math.random() * 1000)}`,
-  username: "N7Y7IeovUhw0wFwpbAQA",
+  clientId: `smart-bruh-js-publisher-${Math.floor(Math.random() * 1000)}`,
+  username: accessToken,
   reconnectPeriod: 3000, // รอ 3 วิถ้าหลุด
   keepalive: 60, // ส่ง ping ทุก 60 วินาที
   clean: true, // ใช้ session ใหม่ทุกครั้ง
@@ -31,7 +33,7 @@ client.on("connect", () => {
     client.publish(
       TEST_TOPIC,
       JSON.stringify(sensorData),
-      { qos: 0, retain: false },
+      { qos: 1, retain: true },
       (err) => {
         if (err) {
           console.error("❌ Publish error:", err);

@@ -20,8 +20,7 @@ This is an IoT workshop. We are using ThingsBoard for rendering the frontend, an
 1. Create a Device in ThingsBoard to receive data from the publisher (reference it using the device's Access Token).
 2. After the publisher sends data, check the Latest Telemetry tab to verify that the data has been published to the topic `v1/devices/me/telemetry`.
 3. Then, go to the `Rule Chains` menu and create a new rule chain as shown in the reference image.
-
-   ![thins board demo rule chain setup](/images/tb-setup-rulechain.png)
-
 4. In the MQTT node of the rule chain, configure the MQTT host, port, and topic to point to the EMQX broker.
 5. Once configured, you will see the published data appear in EMQX.
+
+![thins board demo rule chain setup](/images/tb-setup-rulechain.png)
